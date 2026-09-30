@@ -1,0 +1,34 @@
+name: Verify assessment
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: pip install -r backend/requirements.lock
+      - run: python -m pytest -q
+        working-directory: backend
+      - run: npm ci && npm run build
+        working-directory: frontend
+      - name: Build and run the actual containers
+        run: docker compose up --build -d --wait --wait-timeout 120
+      - name: Verify proxied application and seeded API
+        run: |
+          curl --fail --retry 5 --retry-delay 2 http://localhost:8080/
+          python scripts/compose_smoke.py
+      - name: Show container logs on failure
+        if: failure()
+        run: docker compose logs
+      - name: Stop containers
+        if: always()
+        run: docker compose down -v
