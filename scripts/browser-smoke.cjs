@@ -26,7 +26,7 @@ async function scene(text,seconds=4){if(recording){captions.push({start:(Date.no
     assert(ready,'Local servers did not start');
     browser=await chromium.launch({...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--single-process','--no-zygote']});
     context=await browser.newContext({viewport:{width:1440,height:1000},...(recording?{recordVideo:{dir:artifacts,size:{width:1440,height:1000}}}:{})});
-    const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));start=Date.now();
+    const page=await context.newPage();page.setDefaultTimeout(15000);const errors=[];page.on('pageerror',e=>errors.push(e.message));start=Date.now();
     await page.goto('http://127.0.0.1:5173');
     await page.getByLabel('Customer profile').waitFor();
     assert.equal(await page.getByLabel('Customer profile').locator('option').count(),16);
@@ -67,7 +67,7 @@ async function scene(text,seconds=4){if(recording){captions.push({start:(Date.no
     await page.locator('.filters').getByRole('button',{name:'Needs review'}).click();
     assert.equal(await page.locator('tbody tr').count(),1);
     await page.getByRole('button',{name:/^View RF-/}).click();
-    await page.getByLabel('Request details').scrollIntoViewIfNeeded();
+    await page.getByRole('region',{name:'Request details',exact:true}).scrollIntoViewIfNeeded();
     await scene('The detail view shows the claim, policy explanation, and audit events. Logs contain summaries, not hidden model reasoning.',6);
     await page.getByLabel('Support decision note').fill('Verified delivery and damage evidence with the customer for this assessment.');
     await page.getByRole('button',{name:'Approve request',exact:true}).click();

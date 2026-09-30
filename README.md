@@ -4,6 +4,10 @@
 
 Refund Desk processes synthetic e-commerce refund requests using a deterministic policy engine and an optional, structured AI classifier. It includes a React customer experience, a support dashboard, human review, and an audit trail.
 
+![Support dashboard with approved, denied and escalated requests](docs/screenshots/support.png)
+
+[View the customer experience](docs/screenshots/customer.png) · [Successful container verification](https://github.com/Yemsquare/worknoon/actions/runs/36700181925)
+
 ## Run in one command
 
 Install Docker Desktop (including Docker Compose), then from the repository root:
@@ -178,8 +182,9 @@ docker-compose.yml One-command local environment
 - [x] Documented policy, approval/denial/escalation flow and support dashboard
 - [x] Docker Compose configuration and setup instructions
 - [x] API/policy tests and frontend production build
-- [ ] Run Docker Compose on a Docker-enabled machine
+- [x] Build and run Docker Compose on a Docker-enabled GitHub CI runner
 - [ ] Supply your own API key and verify one real live-model classification
+- [x] Record a captioned local browser walkthrough in demo mode
 - [ ] Review the walkthrough and explain your own engineering decisions
 - [ ] Email the repository and video links to WORKNOON before its stated deadline
 

@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "pageErrors": [],
+  "checks": [
+    "15 demo customers",
+    "customer approval",
+    "final-sale denial",
+    "high-value escalation",
+    "persisted history",
+    "support login",
+    "status filtering",
+    "human review and audit",
+    "policy navigation",
+    "390px responsive layout",
+    "prompt-injection escalation"
+  ],
+  "recordedMode": "demo"
+}
