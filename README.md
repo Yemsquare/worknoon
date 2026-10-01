@@ -185,7 +185,4 @@ docker-compose.yml One-command local environment
 - [x] Build and run Docker Compose on a Docker-enabled GitHub CI runner
 - [ ] Supply your own API key and verify one real live-model classification
 - [x] Record a captioned local browser walkthrough in demo mode
-- [ ] Review the walkthrough and explain your own engineering decisions
-- [ ] Email the repository and video links to WORKNOON before its stated deadline
 
-The assessment permits AI development assistance. This implementation was prepared with assistance; review it, run it, and be ready to explain the trade-offs during the technical interview.
